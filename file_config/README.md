@@ -17,10 +17,11 @@
 <p>
     Функция читает файл конфигурации по строчно, разбирает строки и сохраняет
     их значение в полях структуры config_t.<br>
-    Описание параметров:<br>
-    - const char *file_name - строка с именем файла;<br>
-    - config_t *config - массив структур config_t;<br>
-    - size_t size - размер массива config.<br>
+    <li>Описание параметров:
+        <ul>const char *file_name - строка с именем файла;</ul>
+        <ul>config_t *config - массив структур config_t;</ul>
+        <ul>size_t size - размер массива config.</ul>
+    </li>
 </p>
 
 <hr>
