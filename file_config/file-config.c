@@ -1,15 +1,15 @@
-// app_init.c
+// file_config.c
 
 // Create by: sigal1980
 
 // Date: 2026-02-14
 
-// Comment: реализация функций инициализации приложения
+// Comment: реализация функций работы с файлами конфигураций
 
 #include <string.h>
 #include <stdlib.h>
 
-#include "load_config.h"
+#include "file_config.h"
 
 static int createConfig(const char file_name[], config_t config[],
     size_t size);
@@ -19,8 +19,7 @@ static int getConfigIndex(char name[], config_t config[], size_t size);
 //======= Реализации функций =====================================
 
 // Функция загрузки файла конфигурации
-int loadConfig(const char file_name[], config_t config[],
-    size_t size){
+int loadConfig(const char *file_name, config_t *config, size_t size){
   FILE * file;
   // Разбор строки формата:
   // %[^=] - читаем в первую переменную все символы, пока не встретим знак '=',

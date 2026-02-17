@@ -1,17 +1,20 @@
-// load_config.h
+// file_config.h
 
 // Create by: sigal1980
 
 // Date: 2026-02-14
 
-// Comment: инициализация приложения
+// Comment: работа с файлами конфигурации
 
-/*
- *  Инициализация включает чтение файла конфигурации. Если такового нет, то
- *  он создается, со значениями по умолчанию.
+/*  
+ *  Для изменения имени файла, переопределите FILE_NAME_CONFIG в приложении:
+ *
+ *  #define FILE_NAME_CONFIG  "<имя_файла"
+ *
+ *  Чтение файла конфигурации. Если такового нет, то
+ *  он создается, со значениями по умолчанию, заданными в массиве config_t.
  *  Все ключи и их значения по умолчанию необходимо создать до использования
- *  функции loadConfig. Она опирается на глобальную переменную config (тип
- *  config_t).
+ *  функции loadConfig.
  *  Инициализация переменной:
  *    config_t config[] = {
  *      {.name = "image_width", 
@@ -35,7 +38,7 @@
 #include <stdio.h>
 
 // определяем имя файла настроек
-#define FILE_NAME_CONFIG    "bmp-editor.conf"
+#define FILE_NAME_CONFIG    "naname.conf"
 
 // Длина имени параметра
 #define MAX_NAME_LENGHT     50
@@ -49,6 +52,7 @@ typedef enum{
   STRING
 } config_type_t;
 
+// Объединени для хранения значений настроек
 typedef union{
   int int_value;
   char str_value[MAX_VALUE_LENGHT];
@@ -56,19 +60,22 @@ typedef union{
 
 // структура для хранения настроек
 typedef struct{
+  // Имя настройки
   char name[MAX_NAME_LENGHT];
+  // Тип значения настройки
   config_type_t type;
+  // Значение настройки
   config_value_t value;
 } config_t;
 
-// Конфиурация по умолчанию. полное определение в app_init.c
+// Массив с настройками. Должен быть определен в приложении до начала
+// использования модуля.
 extern config_t config[];
 
 
 //======= Функции инициализации ==========================
 
 // Загрузка файла конфигурации
-int loadConfig(const char file_name[], config_t config[],
-                size_t size);
+int loadConfig(const char *file_name, config_t *config, size_t size);
 
 
