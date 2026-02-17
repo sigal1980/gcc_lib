@@ -3,12 +3,14 @@
 <hr>
 <p>Содержание:</p>
 <p>
-    <a href="#loadConfig">loadConfig();</a>
+    <a href="#loadConfig">
+        int loadConfig(const char *file_name, config_t *config, size_t size);
+    </a>
 </p>
 <hr>
 <p>Описание функций:</p>
 <p id="loadConfig">
-    <b>void loadConfig(char *file_name, config_t *config, size_t size);</b>
+    <b>int loadConfig(const char *file_name, config_t *config, size_t size);</b>
 </p>
 <p>
     Функция читает файл конфигурации по строчно, разбирает строки и сохраняет
