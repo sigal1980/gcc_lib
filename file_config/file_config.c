@@ -67,7 +67,7 @@ int parseConfigString(char * str, config_t * config, size_t size){
   if(strcspn(str, "#") == 0)
     return 1;
   // Если строка содержит неподдерживаемые символы, то возвращаем 1
-  if(strcspn(str, "#!?.,+-/*`@$%^&()_[]{}:;|\\<>") != len)
+  if(strcspn(str, "#!?.,+-*`@$%^&()_[]{}:;|\\<>") != len)
     return 1;
 
   // Разбор строки
@@ -100,10 +100,10 @@ int setConfigValue(char * name, char * value, config_t * config,
   // Проверяем тип значения
   switch(config[config_index].type){
     case INTEGER:
-      config[config_index].value.int_value = (int) strtol(value, &endptr, 0);
+      config[config_index].value.int_value = strtol(value, &endptr, 0);
       break;
     case STRING:
-      stpcpy(config[config_index].value.str_value, value);
+      strcpy(config[config_index].value.str_value, value);
       break;
     default:
       return 1;
@@ -111,4 +111,30 @@ int setConfigValue(char * name, char * value, config_t * config,
   }
 
   return 0;
+}
+
+//=====================================================================
+
+long int getIntegerConfigByName(char *name, config_t *config, size_t size){
+  int param_count = size / sizeof(config_t);
+
+  for(int i = 0; i < param_count; i++){
+    if(strcmp(config[i].name, name) != 0)
+      continue;
+    return config[i].value.int_value;
+  }
+  return -1;
+}
+
+//=======================================================================
+
+char * getStringConfigByName(char *name, config_t *config, size_t size){
+  int param_count = size / sizeof(config_t);
+
+  for(int i = 0; i < param_count; i++){
+    if(strcmp(config[i].name, name) != 0)
+      continue;
+    return config[i].value.str_value;
+  }
+  return '\0';
 }

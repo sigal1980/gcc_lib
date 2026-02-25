@@ -37,6 +37,10 @@
 
 #include <stdio.h>
 
+// Макросы для вызовов функций
+#define getIntConf(name)   getIntegerConfigByName(name, config, sizeof(config))
+#define getStrConf(name)   getStringConfigByName(name, config, sizeof(config))
+
 // Длина имени параметра
 #define MAX_NAME_LENGHT     50
 
@@ -54,7 +58,7 @@ typedef enum{
 
 // Объединени для хранения значений настроек
 typedef union{
-  int  int_value;
+  long int  int_value;
   char str_value[MAX_VALUE_LENGHT];
 } config_value_t;
 
@@ -73,8 +77,10 @@ typedef struct{
 // Загрузка файла конфигурации
 int loadConfig(const char *file_name, config_t *config, size_t size);
 // Разборстроки конфигурации из файла
-int parseConfigString(char * str, config_t * config, size_t size);
+int parseConfigString(char *str, config_t *config, size_t size);
 // Присвает значение из файла полю структуры config_t
-int setConfigValue(char * name, char * value, config_t * config,
+int setConfigValue(char *name, char *value, config_t *config,
                    int config_index);
-
+// Получение значения ШТЕУПУК по имени параметра
+long int getIntegerConfigByName(char *name, config_t *config, size_t size);
+char *   getStringConfigByName(char *name, config_t *config, size_t size);
